@@ -253,9 +253,16 @@ propegate_ns <- function(package) {
   for (ns in loadedNamespaces()) {
     imports <- getNamespaceImports(ns)
     if (package %in% names(imports)) {
+      env <- ns_env(ns)
+      lapply(ls(env, all.names = TRUE), unlockBinding, env)
+
       imp <- imports_env(ns)
+      lapply(ls(imp, all.names = TRUE), unlockBinding, imp)
+
+      unlock_environment(env)
       unlock_environment(imp)
       update_imports(ns)
+      lockEnvironment(env)
       lockEnvironment(imp)
     }
   }

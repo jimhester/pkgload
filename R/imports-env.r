@@ -124,12 +124,8 @@ onload_assign("process_imports", {
 onload_assign("update_imports", {
   update_imports <- function(package) {
     vI <- ("tools" %:::% ".split_dependencies")(packageDescription(package)[["Imports"]])
-    ns <- ns_env(package)
-    unlock_environment(ns)
-    lapply(ls(ns, all.names = TRUE), unlockBinding, ns)
-    imp <- imports_env(package)
-    lapply(ls(imp, all.names = TRUE), unlockBinding, imp)
     nsInfo <- parse_ns_file(system.file("NAMESPACE", package = package))
+    ns <- ns_env(package)
     lib.loc <- NULL
 
     !! load_namespace_for1()
