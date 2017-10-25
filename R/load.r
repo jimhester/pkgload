@@ -224,7 +224,7 @@ load_all <- function(path = ".", reset = TRUE, recompile = FALSE,
   insert_global_shims()
 
   # Propagate new definitions to namespace imports of loaded packages.
-  propegate_ns(package)
+  propagate_ns(package)
 
   invisible(out)
 }
@@ -249,7 +249,7 @@ find_test_dir <- function(path) {
   stop("No testthat directories found in ", path, call. = FALSE)
 }
 
-propegate_ns <- function(package) {
+propagate_ns <- function(package) {
   for (ns in loadedNamespaces()) {
     imports <- getNamespaceImports(ns)
     if (package %in% names(imports)) {
